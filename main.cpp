@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <ctime>
 using namespace std;
-int speed=900000,multiplier=150;
+int speed=900000,multiplier=300;
 const int HEIGHT = 20, WIDTH = 10;
 int board[HEIGHT + 2][WIDTH + 2] = {0};
 int x, y, shape, rot, score = 0;
