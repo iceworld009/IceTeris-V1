@@ -1,6 +1,5 @@
 #include <iostream>
-#include <conio.h>
-#include <ctime>
+#include "conio.h"
 using namespace std;
 int speed=900000,multiplier=300;
 const int HEIGHT = 20, WIDTH = 10;
@@ -48,7 +47,7 @@ void draw() {
     for (int i = 1; i <= HEIGHT; i++) {
         cout << "  ";
         for (int j = 1; j <= WIDTH; j++) {
-            if (board[i][j] == 0) cout << ". ";
+            if (board[i][j] == 0) cout << "` ";
             else if (board[i][j] == 1) cout << "@ ";
             else cout << "# ";
         }
@@ -106,8 +105,8 @@ void clearLines() {
 }
 
 void handleInput() {
-    if (_kbhit()) {
-        char ch = _getch();
+    if (c_kbhit()) {
+        char ch = c_getch();
         putBlock(0);
         if (ch == 'a' && canPlace(x, y - 1, rot)) y--;
         else if (ch == 'd' && canPlace(x, y + 1, rot)) y++;
@@ -117,8 +116,6 @@ void handleInput() {
             if (canPlace(x, y, next)) rot = next;
         }
         else if (ch == 'r') gameOver = true;
-        else if(ch=='m')multiplier+=10;
-        else if(ch=='n')multiplier-=10;
         putBlock(1);
     }
 }
@@ -139,6 +136,7 @@ void tick() {
 void delay() {
     for (int i = 0; i < speed; i++)
         for (int j = 0; j < multiplier; j++);
+            handleInput();
 
 }
 
@@ -146,7 +144,7 @@ int main() {
     srand(time(0));
     cout << "\x1B[2J";
     cout << "Do you see a clean screen? (y/n): ";
-    char ans = _getch();
+    char ans = c_getch();
     if (ans == 'n' || ans == 'N') ansi_supported = false;
 
     newBlock();
